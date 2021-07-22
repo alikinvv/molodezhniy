@@ -34,8 +34,8 @@ $('body').on('click', '.plans__floor.active path, .plans__floor.active rect, .pl
     floor = $(e.currentTarget).attr('id').match(/(s)[0-9]*/gm)[0].match(/[0-9]*/gm)[1];
     apartments = $(e.currentTarget).attr('id').match(/(-)[0-9]*/gm)[0].match(/[0-9]*/gm)[1];
 
-    $('.modal .floor').text(floor);
-    $('.modal .apart').text(apartments);
+    $('.modal .floor').val(floor);
+    $('.modal .apart').val(apartments);
 })
 
 $('body').on('click', '.plans__apartments', (e) => {
@@ -44,22 +44,13 @@ $('body').on('click', '.plans__apartments', (e) => {
 
 // show modal
 $('body').on('click', '[data-modal]:not(.modal)', (e) => {
-    if (!$('.backdrop').hasClass('active')) $('.backdrop').addClass('active');
     $('.modal.active').removeClass('active');
-    $(`.modal[data-modal="${$(e.currentTarget).attr('data-modal')}"]`).addClass('active');
-
-    if ($(e.currentTarget).attr('data-modal') === 'thanks') {
-        setTimeout(() => {
-            $('.modal.active').find('svg').addClass('animate');
-        }, 100);
-    }
+    $(`.modal[data-modal="${$(e.currentTarget).attr('data-modal')}"]`).slideToggle();
 });
 
 // close modal events
 let closeModal = () => {
-    $('.backdrop').removeClass('active');
-    $('.modal').removeClass('active');
-    $('.modal').find('svg').removeClass('animate');
+    $('.modal').slideToggle();
 }
 
 $('body').on('click', '.modal__close, .modal .close', closeModal);
