@@ -36,10 +36,18 @@ $('body').on('click', '.plans__floor.active path, .plans__floor.active rect, .pl
 
     $('.modal .floor').val(floor);
     $('.modal .apart').val(apartments);
+
+    if ($(window).width() < 767) {
+        $('.plans__apartments').slideDown();
+    }
 })
 
 $('body').on('click', '.plans__apartments', (e) => {
     $('.plans__apartments').removeClass('active');
+
+    if ($(window).width() < 767) {
+        $('.plans__apartments').slideUp();
+    }
 })
 
 // show modal
