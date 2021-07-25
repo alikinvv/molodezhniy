@@ -9,7 +9,7 @@ $('body').on('click', '.video__cover', function (e) {
 });
 $('body').on('click', '.plans__nav span', function (e) {
   $('.plans__floor').removeClass('active');
-  $('.plans__apartments').removeClass('active');
+  $('.plans .modal').removeClass('active');
   $('.plans__nav span').removeClass('active');
   $('.plans__house rect').removeClass('active');
   $(".plans__house rect#".concat($(e.currentTarget).attr('class'))).addClass('active');
@@ -18,7 +18,7 @@ $('body').on('click', '.plans__nav span', function (e) {
 });
 $('body').on('click', '.plans__house rect', function (e) {
   $('.plans__floor').removeClass('active');
-  $('.plans__apartments').removeClass('active');
+  $('.plans .modal').removeClass('active');
   $('.plans__house rect').removeClass('active');
   $('.plans__nav span').removeClass('active');
   $(".plans__nav span.".concat($(e.currentTarget).attr('id'))).addClass('active');
@@ -26,22 +26,14 @@ $('body').on('click', '.plans__house rect', function (e) {
   $(e.currentTarget).addClass('active');
 });
 $('body').on('click', '.plans__floor.active path, .plans__floor.active rect, .plans__floor.active polyline, .plans__floor.active polygon', function (e) {
-  $('.plans__apartments').removeClass('active');
-  $('.plans__apartments').addClass('active');
+  $('.plans .modal').addClass('active');
   floor = $(e.currentTarget).attr('id').match(/(s)[0-9]*/gm)[0].match(/[0-9]*/gm)[1];
   apartments = $(e.currentTarget).attr('id').match(/(-)[0-9]*/gm)[0].match(/[0-9]*/gm)[1];
   $('.modal .floor').val(floor);
   $('.modal .apart').val(apartments);
 
   if ($(window).width() < 767) {
-    $('.plans__apartments').slideDown();
-  }
-});
-$('body').on('click', '.plans__apartments', function (e) {
-  $('.plans__apartments').removeClass('active');
-
-  if ($(window).width() < 767) {
-    $('.plans__apartments').slideUp();
+    $('.plans .modal').slideDown();
   }
 }); // show modal
 
@@ -51,7 +43,7 @@ $('body').on('click', '[data-modal]:not(.modal)', function (e) {
 }); // close modal events
 
 var closeModal = function closeModal() {
-  $('.modal').slideToggle();
+  $('.modal').removeClass('active');
 };
 
 $('body').on('click', '.modal__close, .modal .close', closeModal);

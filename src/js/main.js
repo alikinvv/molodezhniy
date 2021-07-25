@@ -9,7 +9,7 @@ $('body').on('click', '.video__cover', (e) => {
 
 $('body').on('click', '.plans__nav span', (e) => {
     $('.plans__floor').removeClass('active');
-    $('.plans__apartments').removeClass('active');
+    $('.plans .modal').removeClass('active');
     $('.plans__nav span').removeClass('active');
     $('.plans__house rect').removeClass('active');
     $(`.plans__house rect#${$(e.currentTarget).attr('class')}`).addClass('active');
@@ -19,7 +19,7 @@ $('body').on('click', '.plans__nav span', (e) => {
 
 $('body').on('click', '.plans__house rect', (e) => {
     $('.plans__floor').removeClass('active');
-    $('.plans__apartments').removeClass('active');
+    $('.plans .modal').removeClass('active');
     $('.plans__house rect').removeClass('active');
     $('.plans__nav span').removeClass('active');
     $(`.plans__nav span.${$(e.currentTarget).attr('id')}`).addClass('active');
@@ -28,8 +28,7 @@ $('body').on('click', '.plans__house rect', (e) => {
 })
 
 $('body').on('click', '.plans__floor.active path, .plans__floor.active rect, .plans__floor.active polyline, .plans__floor.active polygon', (e) => {
-    $('.plans__apartments').removeClass('active');
-    $('.plans__apartments').addClass('active');
+    $('.plans .modal').addClass('active');
 
     floor = $(e.currentTarget).attr('id').match(/(s)[0-9]*/gm)[0].match(/[0-9]*/gm)[1];
     apartments = $(e.currentTarget).attr('id').match(/(-)[0-9]*/gm)[0].match(/[0-9]*/gm)[1];
@@ -38,15 +37,7 @@ $('body').on('click', '.plans__floor.active path, .plans__floor.active rect, .pl
     $('.modal .apart').val(apartments);
 
     if ($(window).width() < 767) {
-        $('.plans__apartments').slideDown();
-    }
-})
-
-$('body').on('click', '.plans__apartments', (e) => {
-    $('.plans__apartments').removeClass('active');
-
-    if ($(window).width() < 767) {
-        $('.plans__apartments').slideUp();
+        $('.plans .modal').slideDown();
     }
 })
 
@@ -58,7 +49,7 @@ $('body').on('click', '[data-modal]:not(.modal)', (e) => {
 
 // close modal events
 let closeModal = () => {
-    $('.modal').slideToggle();
+    $('.modal').removeClass('active');
 }
 
 $('body').on('click', '.modal__close, .modal .close', closeModal);
